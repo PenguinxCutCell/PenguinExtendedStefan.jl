@@ -1,0 +1,6 @@
+[deps]
+Documenter = "e30172f5-a6a5-5a46-863b-614d45cd2de4"
+PenguinExtendedStefan = "556a04d1-5341-457d-bea8-2b9ab02f525c"
+
+[compat]
+Documenter = "1"

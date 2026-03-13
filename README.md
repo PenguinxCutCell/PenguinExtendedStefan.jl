@@ -67,7 +67,6 @@ V_\Gamma = \frac{\kappa_s\partial_n T_s - \kappa_l\partial_n T_l}{\rho L}
 | GHF | not implemented |
 | Gibbs-Thomson | not implemented |
 | Convection | not implemented |
-| Mushy zone | not implemented |
 | 3D validation | not implemented |
 
 ## Validation And Benchmark Suite
@@ -131,8 +130,9 @@ julia --project=. examples/mms_fixed_interface_2d_circle.jl
 julia --project=. examples/prescribed_motion_1d.jl
 julia --project=. examples/prescribed_motion_2d_circle.jl
 julia --project=. examples/planar_front_perturbation_2d.jl
+julia --project=. examples/growth_instability_2d_animation.jl
 ```
 
 ## Current Limitations
 
-Current version does not include Gibbs-Thomson, interface kinetics, global-height-function coupling, convection/Navier-Stokes, mushy-zone modeling, anisotropy, or phase-field formulations.
+Current version does not include Gibbs-Thomson, interface kinetics, global-height-function coupling, convection/Navier-Stokes, anisotropy, or phase-field formulations.

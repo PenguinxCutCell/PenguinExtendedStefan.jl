@@ -25,7 +25,6 @@ Implemented core features:
 | GHF | not implemented |
 | Gibbs-Thomson | not implemented |
 | Convection | not implemented |
-| Mushy zone | not implemented |
 | 3D validation | not implemented |
 
 ## Workflow

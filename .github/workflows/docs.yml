@@ -49,7 +49,6 @@ jobs:
               PackageSpec(url="https://github.com/PenguinxCutCell/PenguinBCs.jl.git"),
               PackageSpec(url="https://github.com/PenguinxCutCell/PenguinSolverCore.jl.git"),
               PackageSpec(url="https://github.com/PenguinxCutCell/PenguinDiffusion.jl.git"),
-              PackageSpec(url="https://github.com/PenguinxCutCell/LevelSetMethods.jl.git"),
               PackageSpec(path=pwd())
             ])
             Pkg.instantiate()'

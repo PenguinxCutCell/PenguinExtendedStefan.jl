@@ -19,7 +19,7 @@ bcC = BorderConditions(; left=Dirichlet(1.0), right=Dirichlet(0.0), bottom=Neuma
 params = ExtendedStefanParams(
     1.0,
     1.0,
-    6.0,
+    1.5,
     AlloyEquilibrium(0.7, 0.0, -0.25);
     kappa_l=1.0,
     kappa_s=0.9,
@@ -51,6 +51,25 @@ solver = build_solver(
     speed0=0.0,
 )
 
+function interface_amplitude(phi, grid)
+    n1, n2 = grid.n
+    x = collect(CartesianGrids.grid1d(grid, 1))
+    xs = Float64[]
+    @inbounds for j in 1:n2
+        for i in 1:(n1 - 1)
+            a = phi[i, j]
+            b = phi[i + 1, j]
+            if isfinite(a) && isfinite(b) && a * b <= 0
+                θ = (abs(a) + abs(b)) > 0 ? abs(a) / (abs(a) + abs(b)) : 0.5
+                push!(xs, (1 - θ) * x[i] + θ * x[i + 1])
+                break
+            end
+        end
+    end
+    isempty(xs) && return NaN
+    return 0.5 * (maximum(xs) - minimum(xs))
+end
+
 function run_with_retry!(solver)
     dt = 0.005
     success = false
@@ -58,7 +77,7 @@ function run_with_retry!(solver)
     out = nothing
     while dt >= 5e-4 && !success
         try
-            out = solve!(solver, (0.0, 0.05); dt=dt, save_history=false)
+            out = solve!(solver, (0.0, 0.03); dt=dt, save_history=true)
             success = all(isfinite, out.state.Tlω) && all(isfinite, out.state.Clω)
         catch err
             last_err = err
@@ -71,12 +90,15 @@ function run_with_retry!(solver)
 end
 
 out, dt = run_with_retry!(solver)
+amp0 = interface_amplitude(reshape(out.history[1].phi, grid.n...), grid)
+amp1 = interface_amplitude(reshape(out.history[end].phi, grid.n...), grid)
 
 metrics = extended_stefan_residual_metrics(out.solver)
 
 println("Planar-front perturbation (2D exploratory)")
 println("  final time              = ", out.state.t)
 println("  used dt                 = ", dt)
+println("  interface amplitude     = ", amp0, " -> ", amp1, " (growth = ", amp1 / amp0, ")")
 println("  max speed               = ", metrics.max_speed)
 println("  nonlinear iterations    = ", metrics.nonlinear_iteration_count)
 println("  thermal residual (last) = ", metrics.thermal_stefan_residual_norm)

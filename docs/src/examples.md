@@ -11,6 +11,7 @@ julia --project=. examples/mms_fixed_interface_2d_circle.jl
 julia --project=. examples/prescribed_motion_1d.jl
 julia --project=. examples/prescribed_motion_2d_circle.jl
 julia --project=. examples/planar_front_perturbation_2d.jl
+julia --project=. examples/growth_instability_2d_animation.jl
 ```
 
 Purpose by example:
@@ -39,3 +40,6 @@ Purpose by example:
 - `planar_front_perturbation_2d.jl`
   - exploratory planar-front perturbation run for morphological-instability-onset studies.
   - this is not a validated dendrite benchmark.
+
+- `growth_instability_2d_animation.jl`
+  - writes a CairoMakie MP4 animation with side-by-side temperature and concentration fields.

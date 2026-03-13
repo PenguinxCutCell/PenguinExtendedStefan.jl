@@ -10,9 +10,7 @@ Not implemented yet:
 - global height function coupling,
 - Gibbs-Thomson and kinetic interface laws,
 - convection / Navier-Stokes coupling,
-- mushy-region modeling,
 - anisotropy,
-- phase-field formulations,
 - broad 3D validation.
 
 Planned items are tracked in `TODO.md`.
